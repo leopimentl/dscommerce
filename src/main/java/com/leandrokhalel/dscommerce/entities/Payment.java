@@ -9,12 +9,12 @@ import lombok.Setter;
 import java.time.Instant;
 
 @Entity
-@Table(name = "tb_order")
+@Table(name = "tb_payment")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class Order {
+public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,13 +23,7 @@ public class Order {
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant moment;
 
-    @Enumerated
-    private OrderStatus status;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User client;
-
-    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
-    private Payment payment;
+    @OneToOne
+    @MapsId
+    private Order order;
 }
