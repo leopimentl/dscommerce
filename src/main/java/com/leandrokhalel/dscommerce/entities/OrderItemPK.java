@@ -1,5 +1,6 @@
 package com.leandrokhalel.dscommerce.entities;
 
+import com.leandrokhalel.dscommerce.domain.product.Product;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;

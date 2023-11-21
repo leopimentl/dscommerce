@@ -1,5 +1,8 @@
-package com.leandrokhalel.dscommerce.entities;
+package com.leandrokhalel.dscommerce.domain.product;
 
+import com.leandrokhalel.dscommerce.entities.Category;
+import com.leandrokhalel.dscommerce.entities.Order;
+import com.leandrokhalel.dscommerce.entities.OrderItem;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
