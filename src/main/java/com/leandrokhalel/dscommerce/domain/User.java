@@ -1,4 +1,4 @@
-package com.leandrokhalel.dscommerce.entities;
+package com.leandrokhalel.dscommerce.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

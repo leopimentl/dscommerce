@@ -1,4 +1,4 @@
-package com.leandrokhalel.dscommerce.domain.product;
+package com.leandrokhalel.dscommerce.api;
 
 
 
