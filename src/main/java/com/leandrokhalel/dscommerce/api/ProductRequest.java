@@ -1,9 +1,8 @@
 package com.leandrokhalel.dscommerce.api;
 
-import com.leandrokhalel.dscommerce.domain.Product;
 
-public record ProductDetailData(
-        Long id,
+
+public record ProductRequest(
         String name,
         String description,
         Double price,

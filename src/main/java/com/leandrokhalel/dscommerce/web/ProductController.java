@@ -1,8 +1,7 @@
 package com.leandrokhalel.dscommerce.web;
 
-import com.leandrokhalel.dscommerce.api.ProductDetailData;
-import com.leandrokhalel.dscommerce.api.ProductRegistrationData;
-import com.leandrokhalel.dscommerce.domain.Product;
+import com.leandrokhalel.dscommerce.api.ProductRequest;
+import com.leandrokhalel.dscommerce.api.ProductResponse;
 import com.leandrokhalel.dscommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 
@@ -21,23 +19,36 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-    @GetMapping
-    public ResponseEntity<Page<ProductDetailData>> findAll(Pageable pageable) {
-        Page<ProductDetailData> resources = productService.findAll(pageable).map(ProductMapper::fromProductToDetailData);
-        return ResponseEntity.ok(resources);
-    }
-
     @PostMapping
-    public ResponseEntity<ProductDetailData> insert(@RequestBody ProductRegistrationData data) {
-        Product product = productService.insert(data);
-        ProductDetailData response = ProductMapper.fromProductToDetailData(product);
+    public ResponseEntity<ProductResponse> insert(@RequestBody ProductRequest dto) {
+        ProductResponse response = productService.insert(dto);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(product.getId())
+                .buildAndExpand(response.id())
                 .toUri();
 
         return ResponseEntity.created(location).body(response);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<ProductResponse>> findAll(Pageable pageable) {
+        return ResponseEntity.ok(productService.findAll(pageable));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductResponse> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(productService.findById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductResponse> update(@PathVariable Long id, @RequestBody ProductRequest dto) {
+        return ResponseEntity.ok(productService.update(id, dto));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        return ResponseEntity.noContent().build();
     }
 }
