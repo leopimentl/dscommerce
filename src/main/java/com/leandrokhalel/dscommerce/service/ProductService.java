@@ -4,7 +4,8 @@ import com.leandrokhalel.dscommerce.api.ProductRequest;
 import com.leandrokhalel.dscommerce.domain.Product;
 import com.leandrokhalel.dscommerce.api.ProductResponse;
 import com.leandrokhalel.dscommerce.repository.ProductRepository;
-import com.leandrokhalel.dscommerce.web.ProductMapper;
+import com.leandrokhalel.dscommerce.service.exception.ResourceNotFoundException;
+import com.leandrokhalel.dscommerce.controllers.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,7 +37,7 @@ public class ProductService {
     public ProductResponse findById(Long id) {
         return productRepository.findById(id)
                 .map(ProductMapper::fromProductToResponse)
-                .get();
+                .orElseThrow(() -> new ResourceNotFoundException("Recurso não encontrado"));
     }
 
     @Transactional

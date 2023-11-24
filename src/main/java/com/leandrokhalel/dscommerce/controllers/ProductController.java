@@ -1,4 +1,4 @@
-package com.leandrokhalel.dscommerce.web;
+package com.leandrokhalel.dscommerce.controllers;
 
 import com.leandrokhalel.dscommerce.api.ProductRequest;
 import com.leandrokhalel.dscommerce.api.ProductResponse;
