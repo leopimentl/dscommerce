@@ -1,6 +1,7 @@
 package com.leandrokhalel.dscommerce.infra.handler;
 
 import com.leandrokhalel.dscommerce.api.CustomError;
+import com.leandrokhalel.dscommerce.service.exception.DatabaseException;
 import com.leandrokhalel.dscommerce.service.exception.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,7 +25,17 @@ public class ExceptionHandlerController {
                 ex.getMessage(),
                 request.getRequestURI()
         );
-
         return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(DatabaseException.class)
+    public ResponseEntity<CustomError> handleResourceNotFound(DatabaseException ex, HttpServletRequest request) {
+        CustomError err = new CustomError(
+                Instant.now(),
+                HttpStatus.BAD_REQUEST.value(),
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+        return ResponseEntity.badRequest().body(err);
     }
 }
