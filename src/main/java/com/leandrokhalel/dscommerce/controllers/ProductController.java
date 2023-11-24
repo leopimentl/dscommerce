@@ -3,6 +3,7 @@ package com.leandrokhalel.dscommerce.controllers;
 import com.leandrokhalel.dscommerce.api.ProductRequest;
 import com.leandrokhalel.dscommerce.api.ProductResponse;
 import com.leandrokhalel.dscommerce.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +21,7 @@ public class ProductController {
     ProductService productService;
 
     @PostMapping
-    public ResponseEntity<ProductResponse> insert(@RequestBody ProductRequest dto) {
+    public ResponseEntity<ProductResponse> insert(@RequestBody @Valid ProductRequest dto) {
         ProductResponse response = productService.insert(dto);
 
         URI location = ServletUriComponentsBuilder
@@ -43,7 +44,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductResponse> update(@PathVariable Long id, @RequestBody ProductRequest dto) {
+    public ResponseEntity<ProductResponse> update(@PathVariable Long id, @RequestBody @Valid ProductRequest dto) {
         return ResponseEntity.ok(productService.update(id, dto));
     }
 
